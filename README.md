@@ -48,5 +48,5 @@ O **User Manager** é um sistema Full Stack para gerenciar usuários, desenvolvi
 
 ##### **1. Clone o repositório**
 ```bash
-git clone https://github.com/ricardosantanadev4/usermanager.git
+git clone https://github.com/ricardosantanadev4/user-manager.git
 cd user-manager
