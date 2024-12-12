@@ -6,8 +6,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="input-container">
                 <input id="email" formControlName="email" type="email" placeholder=" " [ngClass]="{'invalid':loginForm.get('email')?.invalid 
-          && (loginForm.get('email')?.touched 
-          || loginForm.get('email')?.dirty)}" />
+                    && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)}" />
                 <label for="email" [ngClass]="{'label-invalid':loginForm.get('email')?.invalid 
           && (loginForm.get('email')?.touched 
           || loginForm.get('email')?.dirty)}">Usuário</label>

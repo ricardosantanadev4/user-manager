@@ -46,6 +46,10 @@
             &:focus {
                 border-bottom: 2px solid #3F51B5 !important; // Cor da borda quando o campo é focado
             }
+
+            &:-webkit-autofill {
+                box-shadow: 0 0 0 1000px #ffffff inset !important; // Muda cor da sobra criada automaticamente pelo navegador
+            }
         }
 
         button {
