@@ -2,8 +2,11 @@ package com.ricardosantana.spring.usermanager.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,5 +37,18 @@ public class UsuarioController {
             @RequestParam(defaultValue = "10") int size) {
         UsuarioPageDTO usuarioPageDTO = this.usuarioService.listarUsuariosPaginados(page, size);
         return new ResponseEntity<UsuarioPageDTO>(usuarioPageDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> atualizarUsuario(@PathVariable Long id,
+            @RequestBody UsuarioDTO usuarioDto) {
+        UsuarioDTO body = this.usuarioService.atualizarUsuario(id, usuarioDto);
+        return new ResponseEntity<UsuarioDTO>(body, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removerUsuario(@PathVariable Long id) {
+        this.usuarioService.removerUsuario(id);
+        return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }
