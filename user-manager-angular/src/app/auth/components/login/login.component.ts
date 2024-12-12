@@ -1,18 +1,34 @@
+import { NgClass, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
-  constructor(private router: Router) { }
+  loginForm!: FormGroup;
 
-  navegarParaDashboard() {
-    this.router.navigate(['dashboard']);
+  constructor(private formBuider: FormBuilder, private router: Router) {
+    this.initForm();
+  }
+
+  initForm() {
+    this.loginForm = this.formBuider.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    })
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }
