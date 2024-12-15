@@ -28,26 +28,22 @@ export class UsuarioComponent {
   sortDirection: 'asc' | 'desc' = 'asc'; // Direção da ordenação
   itemsPerPageOptions: number[] = [5, 10, 15, 20]; // Opções para o seletor
   position: TooltipPosition[] = ['below', 'above', 'left', 'right'];
-  data: IUsuario[] = Array.from({ length: 20 }, (_, i) => ({
-    id: (i + 1),
-    nome: ['Usuario'][i % 1],
-    email: ['email@gmail.com'][i % 1],
-    telefone: ['81999999999'][i % 1],
-  }));
+  data: IUsuario[] = [];
+
   constructor(private usurioService: UsuarioService, private router: Router,
     private route: ActivatedRoute) {
-    // this.listarTodosRamaisNoConsole();
+    this.listarTodosUsuariosNoConsole();
   }
 
-  // listarTodosRamaisNoConsole() {
-  // this.ramalService.listarTodosOsRamais(this.currentPage - 1, this.itemsPerPage).subscribe(r => {
-  // if (r.body) {
-  // this.data = r.body.ramais;
-  // this.totalPages = r.body.totalPages;
-  // this.totalElements = r.body.totalElements;
-  // }
-  // });
-  // }
+  listarTodosUsuariosNoConsole() {
+    this.usurioService.listarTodosOsUsuarios(this.currentPage - 1, this.itemsPerPage).subscribe(r => {
+      if (r.body) {
+        this.data = r.body.usuarios;
+        this.totalPages = r.body.totalPages;
+        this.totalElements = r.body.totalElements;
+      }
+    });
+  }
 
   applyFilter() {
     return this.data.filter(item =>
@@ -56,6 +52,7 @@ export class UsuarioComponent {
       )
     );
   }
+
   sort(property: keyof IUsuario) {
     // Alterna entre a direção de ordenação
     this.sortDirection = this.sortedColumn === property && this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -71,6 +68,7 @@ export class UsuarioComponent {
       }
     });
   }
+
   navigateTo(route: string, servicoID?: number) {
     if (this.router && servicoID) {
       this.router.navigate([route, servicoID], { relativeTo: this.route });
@@ -78,16 +76,19 @@ export class UsuarioComponent {
       this.router.navigate([route], { relativeTo: this.route });
     }
   }
+
   goToFirstPage() {
     this.currentPage = 1;
-    // this.listarTodosRamaisNoConsole();
+    this.listarTodosUsuariosNoConsole();
   }
+
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      // this.listarTodosRamaisNoConsole();
+      this.listarTodosUsuariosNoConsole();
     }
   }
+
   getPageNumbers(): number[] {
     const totalPages = this.totalPages;
     const visiblePages = [];
@@ -102,25 +103,30 @@ export class UsuarioComponent {
     }
     return visiblePages;
   }
+
   goToPage(page: number) {
     this.currentPage = page; // Define a página atual com base no número clicado
-    // this.listarTodosRamaisNoConsole();
+    this.listarTodosUsuariosNoConsole();
   }
+
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      // this.listarTodosRamaisNoConsole();
+      this.listarTodosUsuariosNoConsole();
     }
   }
+
   goToLastPage() {
     this.currentPage = this.totalPages;
-    // this.listarTodosRamaisNoConsole();
+    this.listarTodosUsuariosNoConsole();
   }
+
   onItemsPerPageChange() {
     this.currentPage = 1; // Reiniciar para a primeira página ao alterar os itens por página
     this.itemsPerPage = Number(this.itemsPerPage); // Garante que seja um número
-    // this.listarTodosRamaisNoConsole();
+    this.listarTodosUsuariosNoConsole();
   }
+
   baixarRelatorio(formato: string) {
     // this.relatorioService.baixarRelatorio(formato).subscribe(response => {
     // const blob = response.body; // Acessa o corpo da resposta, que é o Blob
