@@ -28,7 +28,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/usuarios']);
     }
   }
 }
