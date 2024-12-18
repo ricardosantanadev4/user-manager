@@ -69,9 +69,9 @@ export class UsuarioComponent {
     });
   }
 
-  navigateTo(route: string, servicoID?: number) {
-    if (this.router && servicoID) {
-      this.router.navigate([route, servicoID], { relativeTo: this.route });
+  navigateTo(route: string, usuarioId?: number) {
+    if (this.router && usuarioId) {
+      this.router.navigate([route, usuarioId], { relativeTo: this.route });
     } else {
       this.router.navigate([route], { relativeTo: this.route });
     }
