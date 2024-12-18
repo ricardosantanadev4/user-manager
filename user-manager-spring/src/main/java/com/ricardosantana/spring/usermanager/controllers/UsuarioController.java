@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ricardosantana.spring.usermanager.dtos.UsuarioDTO;
 import com.ricardosantana.spring.usermanager.dtos.UsuarioPageDTO;
+import com.ricardosantana.spring.usermanager.models.Usuario;
 import com.ricardosantana.spring.usermanager.services.UsuarioService;
 
 @RestController
@@ -39,16 +40,23 @@ public class UsuarioController {
         return new ResponseEntity<UsuarioPageDTO>(usuarioPageDTO, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> atualizarUsuario(@PathVariable Long id,
+    @GetMapping("/{usuarioId}")
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorID(@PathVariable Long usuarioId) {
+        Usuario usuario = this.usuarioService.buscarUsuarioPorId(usuarioId);
+        UsuarioDTO usuarioDto = this.usuarioService.toDto(usuario);
+        return new ResponseEntity<UsuarioDTO>(usuarioDto, HttpStatus.OK);
+    }
+
+    @PutMapping("/{usuarioId}")
+    public ResponseEntity<UsuarioDTO> atualizarUsuario(@PathVariable Long usuarioId,
             @RequestBody UsuarioDTO usuarioDto) {
-        UsuarioDTO body = this.usuarioService.atualizarUsuario(id, usuarioDto);
+        UsuarioDTO body = this.usuarioService.atualizarUsuario(usuarioId, usuarioDto);
         return new ResponseEntity<UsuarioDTO>(body, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> removerUsuario(@PathVariable Long id) {
-        this.usuarioService.removerUsuario(id);
+    @DeleteMapping("/{usuarioId}")
+    public ResponseEntity<Void> removerUsuario(@PathVariable Long usuarioId) {
+        this.usuarioService.removerUsuario(usuarioId);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 }

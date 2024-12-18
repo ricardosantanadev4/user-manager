@@ -67,18 +67,22 @@ public class UsuarioService {
         return toDto;
     }
 
-    public Usuario buscarUsuarioPorId(Long id) {
-        Optional<Usuario> optionalUsuario = this.usuarioRepository.findById(id);
+    public Usuario buscarUsuarioPorId(Long usuarioId) {
+        Optional<Usuario> optionalUsuario = this.usuarioRepository.findById(usuarioId);
         if (!optionalUsuario.isPresent()) {
-            throw new EntityNotFoundException("Usuário não encontrado com id: " + id);
+            throw new EntityNotFoundException("Usuário não encontrado com id: " + usuarioId);
         }
         Usuario usuario = optionalUsuario.get();
         return usuario;
     }
 
-    public void removerUsuario(Long id) {
-        Usuario usuario = this.buscarUsuarioPorId(id);
+    public void removerUsuario(Long usuarioId) {
+        Usuario usuario = this.buscarUsuarioPorId(usuarioId);
         this.usuarioRepository.deleteById(usuario.getId());
     }
 
+    public UsuarioDTO toDto(Usuario usuario) {
+        UsuarioDTO usuarioDto = this.usuarioMapper.toDTO(usuario);
+        return usuarioDto;
+    }
 }

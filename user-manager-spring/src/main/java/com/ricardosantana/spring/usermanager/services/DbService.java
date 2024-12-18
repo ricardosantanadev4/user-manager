@@ -24,7 +24,7 @@ public class DbService {
                     nomes[i % nomes.length],
                     "email" + (i + 1) + "@gmail.com",
                     "81999999999");
-            usuarioRepository.save(usuario);
+            this.usuarioRepository.save(usuario);
         }
         return true;
     }
