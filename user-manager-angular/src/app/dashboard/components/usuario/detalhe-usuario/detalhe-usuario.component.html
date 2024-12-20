@@ -16,7 +16,7 @@
                 <small>O nome é obrigatório.</small>
             </div>
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" formControlName="email" aria-labelledby="email" />
+            <input type="email" id="email" name="email" formControlName="email" aria-labelledby="email" />
             <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
                 <small>O email é obrigatório.</small>
             </div>

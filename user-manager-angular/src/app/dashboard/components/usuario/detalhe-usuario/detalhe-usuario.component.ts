@@ -19,7 +19,7 @@ export class DetalheUsuarioComponent {
   initForm() {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       telefone: ['', Validators.required]
     })
   }
