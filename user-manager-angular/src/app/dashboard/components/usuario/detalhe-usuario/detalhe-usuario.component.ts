@@ -20,7 +20,8 @@ export class DetalheUsuarioComponent {
     this.form = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', Validators.required]
+      telefone: ['', [Validators.required, , Validators.minLength(11), Validators.maxLength(11),
+      Validators.pattern('^[0-9]+$')]],
     })
   }
 
