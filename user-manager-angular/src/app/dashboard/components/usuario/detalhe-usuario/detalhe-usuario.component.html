@@ -7,7 +7,7 @@
     <form class="inputs" [formGroup]="form">
         <div class="form-group">
             <label for="codigo">Código:</label>
-            <input type="text" [disabled]="true" id="codigo" name="codigo" />
+            <input type="text" [disabled]="true" id="codigo" name="codigo" [value]="form.get('id')?.value" />
         </div>
         <div class="form-group">
             <label for="nome">Nome:</label>

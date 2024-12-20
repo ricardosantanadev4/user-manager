@@ -1,6 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { IUsuario } from '../../../../shared/models/usuario.interface';
 
 @Component({
   selector: 'app-detalhe-usuario',
@@ -12,16 +14,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class DetalheUsuarioComponent {
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.initForm();
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    const usuarioResolver: IUsuario = this.route.snapshot.data['usuarioResolver']
+    this.initForm(usuarioResolver);
   }
 
-  initForm() {
+  initForm(usuarioResolver: IUsuario) {
     this.form = this.formBuilder.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      telefone: ['', [Validators.required, , Validators.minLength(11), Validators.maxLength(11),
-      Validators.pattern('^[0-9]+$')]],
+      id: [usuarioResolver?.id],
+      nome: [usuarioResolver?.nome, Validators.required],
+      email: [usuarioResolver?.email, [Validators.required, Validators.email]],
+      telefone: [usuarioResolver?.telefone, [Validators.required, , Validators.minLength(11),
+      Validators.maxLength(11), Validators.pattern('^[0-9]+$')]],
     })
   }
 
