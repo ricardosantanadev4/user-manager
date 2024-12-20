@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IUsuario } from '../../../../shared/models/usuario.interface';
+import { UsuarioService } from '../../../../shared/services/usuario.service';
 
 @Component({
   selector: 'app-detalhe-usuario',
@@ -14,7 +15,8 @@ import { IUsuario } from '../../../../shared/models/usuario.interface';
 export class DetalheUsuarioComponent {
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
+    private usuarioService: UsuarioService) {
     const usuarioResolver: IUsuario = this.route.snapshot.data['usuarioResolver']
     this.initForm(usuarioResolver);
   }
@@ -36,6 +38,7 @@ export class DetalheUsuarioComponent {
   salvar() {
     if (this.form.valid) {
       console.log('Dados salvos:', this.form.value);
+      this.usuarioService.criarUsuario(this.form.value).subscribe();
       alert('Registro salvo com sucesso!');
     } else {
       alert('Por favor, preencha todos os campos antes de salvar.');

@@ -25,4 +25,9 @@ export class UsuarioService {
     return this.daoService.get<IUsuario>(`${AppSettings.USUARIOS}/${usuarioId}`,
       DaoService.MEDIA_TYPE_APP_JSON);
   }
+
+  public criarUsuario(usuario: IUsuario) {
+    return this.daoService.post<IUsuario>(`${AppSettings.CRIARUSUARIO}`, usuario,
+      DaoService.MEDIA_TYPE_APP_JSON);
+  }
 }
