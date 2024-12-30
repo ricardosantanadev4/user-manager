@@ -47,9 +47,24 @@ public class UsuarioService {
         return true;
     }
 
-    public UsuarioPageDTO listarUsuariosPaginados(int page, int size) {
+    public UsuarioPageDTO listarUsuariosPaginados(int page, int size, String search) {
         Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
-        Page<Usuario> pageUsuario = this.usuarioRepository.findAll(pageable);
+        if (this.verificarStringVaziaOuNula(search)) {
+            Page<Usuario> pageUsuario = this.usuarioRepository.findAll(pageable);
+            UsuarioPageDTO usuarioPageDTO = this.paginarUsuariosEmDTO(pageUsuario);
+            return usuarioPageDTO;
+        }
+        Page<Usuario> pageUsuario = this.usuarioRepository.searchUsers(search,
+                pageable);
+        UsuarioPageDTO usuarioPageDTO = this.paginarUsuariosEmDTO(pageUsuario);
+        return usuarioPageDTO;
+    }
+
+    public boolean verificarStringVaziaOuNula(String str) {
+        return str == null || str.trim().isEmpty();
+    }
+
+    public UsuarioPageDTO paginarUsuariosEmDTO(Page<Usuario> pageUsuario) {
         List<UsuarioDTO> usuariosDto = pageUsuario.get().map(usuario -> this.usuarioMapper
                 .toDTO(usuario)).collect(Collectors.toList());
         UsuarioPageDTO usuarioPageDTO = this.usuarioMapper.toPageDTO(usuariosDto, pageUsuario);

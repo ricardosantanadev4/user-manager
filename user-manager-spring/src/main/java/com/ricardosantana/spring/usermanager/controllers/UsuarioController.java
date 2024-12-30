@@ -35,8 +35,8 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<UsuarioPageDTO> listarUsuariosPaginados(@RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        UsuarioPageDTO usuarioPageDTO = this.usuarioService.listarUsuariosPaginados(page, size);
+            @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String search) {
+        UsuarioPageDTO usuarioPageDTO = this.usuarioService.listarUsuariosPaginados(page, size, search);
         return new ResponseEntity<UsuarioPageDTO>(usuarioPageDTO, HttpStatus.OK);
     }
 
