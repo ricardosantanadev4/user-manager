@@ -48,12 +48,14 @@ public class UsuarioService {
     }
 
     public UsuarioPageDTO listarUsuariosPaginados(int page, int size, String search) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
+
         if (this.verificarStringVaziaOuNula(search)) {
+            Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
             Page<Usuario> pageUsuario = this.usuarioRepository.findAll(pageable);
             UsuarioPageDTO usuarioPageDTO = this.paginarUsuariosEmDTO(pageUsuario);
             return usuarioPageDTO;
         }
+        Pageable pageable = PageRequest.of(0, size, Sort.Direction.ASC, "id");
         Page<Usuario> pageUsuario = this.usuarioRepository.searchUsers(search,
                 pageable);
         UsuarioPageDTO usuarioPageDTO = this.paginarUsuariosEmDTO(pageUsuario);
