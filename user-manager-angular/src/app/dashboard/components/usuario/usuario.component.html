@@ -1,6 +1,6 @@
 <div class="table-container">
     <div class="table-header">
-        <input type="text" [(ngModel)]="filter" (ngModelChange)="applyFilter()" placeholder="Pesquisar..." />
+        <input type="text" [(ngModel)]="filter" (ngModelChange)="listarUsuarios()" placeholder="Pesquisar..." />
         <button mat-raised-button (click)="navigateTo('detalhe')">Novo Usuario</button>
     </div>
     <table>

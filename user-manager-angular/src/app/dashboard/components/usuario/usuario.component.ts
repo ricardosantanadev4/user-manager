@@ -7,8 +7,6 @@ import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUsuario } from '../../../shared/models/usuario.interface';
 import { UsuarioService } from '../../../shared/services/usuario.service';
-// import { IServico } from '../../../shared/models/servicos.interface';
-// import { RelatorioService } from '../../../shared/services/relatorio.service';
 
 @Component({
   selector: 'app-usuario',
@@ -32,11 +30,11 @@ export class UsuarioComponent {
 
   constructor(private usurioService: UsuarioService, private router: Router,
     private route: ActivatedRoute) {
-    this.listarTodosUsuariosNoConsole();
+    this.listarUsuarios();
   }
 
-  listarTodosUsuariosNoConsole() {
-    this.usurioService.listarTodosOsUsuarios(this.currentPage - 1, this.itemsPerPage).subscribe(r => {
+  listarUsuarios() {
+    this.usurioService.listarUsuariosPaginados(this.currentPage - 1, this.itemsPerPage, this.filter).subscribe(r => {
       if (r.body) {
         this.data = r.body.usuarios;
         this.totalPages = r.body.totalPages;
@@ -48,7 +46,7 @@ export class UsuarioComponent {
   applyFilter() {
     return this.data.filter(item =>
       Object.values(item).some(value =>
-        String(value).toLowerCase().includes(this.filter.toLowerCase())
+        String(value).trim().toLowerCase().includes(this.filter.trim().toLowerCase())
       )
     );
   }
@@ -79,13 +77,13 @@ export class UsuarioComponent {
 
   goToFirstPage() {
     this.currentPage = 1;
-    this.listarTodosUsuariosNoConsole();
+    this.listarUsuarios();
   }
 
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.listarTodosUsuariosNoConsole();
+      this.listarUsuarios();
     }
   }
 
@@ -106,25 +104,25 @@ export class UsuarioComponent {
 
   goToPage(page: number) {
     this.currentPage = page; // Define a página atual com base no número clicado
-    this.listarTodosUsuariosNoConsole();
+    this.listarUsuarios();
   }
 
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
-      this.listarTodosUsuariosNoConsole();
+      this.listarUsuarios();
     }
   }
 
   goToLastPage() {
     this.currentPage = this.totalPages;
-    this.listarTodosUsuariosNoConsole();
+    this.listarUsuarios();
   }
 
   onItemsPerPageChange() {
     this.currentPage = 1; // Reiniciar para a primeira página ao alterar os itens por página
     this.itemsPerPage = Number(this.itemsPerPage); // Garante que seja um número
-    this.listarTodosUsuariosNoConsole();
+    this.listarUsuarios();
   }
 
   baixarRelatorio(formato: string) {

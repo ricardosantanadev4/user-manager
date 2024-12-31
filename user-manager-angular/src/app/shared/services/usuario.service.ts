@@ -1,10 +1,10 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUsuarioPage } from '../models/usuario-page.interface';
-import { DaoService } from './dao.service';
 import { AppSettings } from '../../app.settings';
+import { IUsuarioPage } from '../models/usuario-page.interface';
 import { IUsuario } from '../models/usuario.interface';
+import { DaoService } from './dao.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class UsuarioService {
     private http: HttpClient,
   ) { }
 
-  public listarTodosOsUsuarios(page: number, size: number): Observable<HttpResponse<IUsuarioPage>> {
-    return this.daoService.get<IUsuarioPage>(`${AppSettings.USUARIOS}?page=${page}&size=${size}`,
+  public listarUsuariosPaginados(page: number, size: number, search?: string): Observable<HttpResponse<IUsuarioPage>> {
+    return this.daoService.get<IUsuarioPage>(`${AppSettings.USUARIOS}?page=${page}&size=${size}&search=${search}`,
       DaoService.MEDIA_TYPE_APP_JSON);
   }
 
