@@ -36,11 +36,15 @@ export class DetalheUsuarioComponent {
   }
 
   salvar() {
-    if (this.form.valid) {
-      console.log('Dados salvos:', this.form.value);
+    if (this.form.valid && this.form.get('id')?.value === null) {
       this.usuarioService.criarUsuario(this.form.value).subscribe();
       alert('Registro salvo com sucesso!');
-    } else {
+    }
+    if (this.form.valid && this.form.value.id > 0) {
+      this.usuarioService.editarUsuario(this.form.value).subscribe();
+      alert('Registro editado com sucesso!');
+    }
+    else {
       alert('Por favor, preencha todos os campos antes de salvar.');
     }
   }

@@ -30,4 +30,9 @@ export class UsuarioService {
     return this.daoService.post<IUsuario>(`${AppSettings.CRIARUSUARIO}`, usuario,
       DaoService.MEDIA_TYPE_APP_JSON);
   }
+
+  public editarUsuario(usuario: IUsuario) {
+    return this.daoService.put<IUsuario>(`${AppSettings.USUARIOS}/${usuario.id}`, usuario,
+      DaoService.MEDIA_TYPE_APP_JSON);
+  }
 }
