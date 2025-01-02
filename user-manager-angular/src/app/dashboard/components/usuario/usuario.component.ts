@@ -75,6 +75,13 @@ export class UsuarioComponent {
     }
   }
 
+  removerUsuario(usuarioID: number) {
+    this.usurioService.removerUsuario(usuarioID).subscribe();
+    alert('Usuario removido');
+    this.listarUsuarios();
+  }
+
+
   goToFirstPage() {
     this.currentPage = 1;
     this.listarUsuarios();

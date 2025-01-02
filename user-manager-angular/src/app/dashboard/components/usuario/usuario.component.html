@@ -31,7 +31,8 @@
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button class="delete-btn" mat-icon-button aria-label="Botão de excluir" #tooltip="matTooltip"
-                            matTooltip="Excluir" [matTooltipPosition]="position[1]" matTooltipHideDelay="1">
+                            matTooltip="Excluir" [matTooltipPosition]="position[1]" matTooltipHideDelay="1"
+                            (click)="removerUsuario(item.id)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

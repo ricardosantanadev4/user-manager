@@ -35,4 +35,9 @@ export class UsuarioService {
     return this.daoService.put<IUsuario>(`${AppSettings.USUARIOS}/${usuario.id}`, usuario,
       DaoService.MEDIA_TYPE_APP_JSON);
   }
+
+  public removerUsuario(usuarioId: number) {
+    return this.daoService.delete<IUsuario>(`${AppSettings.USUARIOS}/${usuarioId}`,
+      DaoService.MEDIA_TYPE_APP_JSON);
+  }
 }
