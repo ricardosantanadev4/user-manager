@@ -37,15 +37,23 @@ export class DetalheUsuarioComponent {
 
   salvar() {
     if (this.form.valid && this.form.get('id')?.value === null) {
-      this.usuarioService.criarUsuario(this.form.value).subscribe();
-      alert('Registro salvo com sucesso!');
+      this.usuarioService.criarUsuario(this.form.value).subscribe(
+        {
+          error: response => {
+            alert('Ocorreu um erro ao tentar salvar o usuário.')
+          }
+        }
+      );
     }
     if (this.form.valid && this.form.value.id > 0) {
-      this.usuarioService.editarUsuario(this.form.value).subscribe();
-      alert('Registro editado com sucesso!');
+      this.usuarioService.editarUsuario(this.form.value).subscribe({
+        error: response => {
+          alert('Ocorreu um erro ao tentar editar o usuário.')
+        }
+      });
     }
-    else {
-      alert('Por favor, preencha todos os campos antes de salvar.');
+    if (this.form.invalid) {
+      alert('Existe algum campo inválido verifique os campos e tente novamete.');
     }
   }
 }
