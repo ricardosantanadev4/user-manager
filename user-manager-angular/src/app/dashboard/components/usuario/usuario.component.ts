@@ -76,9 +76,20 @@ export class UsuarioComponent {
   }
 
   removerUsuario(usuarioID: number) {
-    this.usurioService.removerUsuario(usuarioID).subscribe();
-    alert('Usuario removido');
-    this.listarUsuarios();
+    this.usurioService.removerUsuario(usuarioID).subscribe(
+      {
+        next: response => {
+          alert('Usuário removido!'),
+            this.listarUsuarios();
+        },
+        error: response => {
+          alert('Erro ao tentar remover usuário.'),
+            this.listarUsuarios();
+        }
+
+      }
+    );
+
   }
 
 

@@ -39,17 +39,15 @@ export class DetalheUsuarioComponent {
     if (this.form.valid && this.form.get('id')?.value === null) {
       this.usuarioService.criarUsuario(this.form.value).subscribe(
         {
-          error: response => {
-            alert('Ocorreu um erro ao tentar salvar o usuário.')
-          }
+          next: response => { alert('Usuário salvo com sucesso!') },
+          error: response => { alert('Ocorreu um erro ao tentar salvar o usuário.') }
         }
       );
     }
     if (this.form.valid && this.form.value.id > 0) {
       this.usuarioService.editarUsuario(this.form.value).subscribe({
-        error: response => {
-          alert('Ocorreu um erro ao tentar editar o usuário.')
-        }
+        next: response => { alert('Usuário editado com sucesso!') },
+        error: response => { alert('Ocorreu um erro ao tentar editar o usuário.') }
       });
     }
     if (this.form.invalid) {

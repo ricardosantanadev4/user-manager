@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { catchError, finalize } from 'rxjs';
+import { catchError, delay, finalize } from 'rxjs';
 import Swal from 'sweetalert2';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
@@ -23,6 +23,7 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
     }
   });
   return next(req).pipe(
+    delay(300),
     catchError((error) => {
       // Lida com o erro da requisição
       console.error('Erro na requisição:', error);
